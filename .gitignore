@@ -36,3 +36,12 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+# Xcode files to ignore
+Tarakeb project.xcodeproj/
+*.xcworkspace
+xcuserdata/
+DerivedData/
+*.xcuserstate
+
+# System files
+.DS_Store
