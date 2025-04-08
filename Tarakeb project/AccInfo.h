@@ -16,7 +16,7 @@ class AccountsInformations{
         TransctionsHistory *link;
 
         struct TransctionsInfos{
-            int Sender, Reciver;
+            int sender, Reciver;
             float Amount;
         };
 
