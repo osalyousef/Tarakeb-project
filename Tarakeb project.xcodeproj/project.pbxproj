@@ -22,9 +22,22 @@
 		D67A32B12DA4AB04006A08A2 /* Tarakeb project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Tarakeb project"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		D67A32BD2DA4BA80006A08A2 /* Exceptions for "Tarakeb project" folder in "Compile Sources" phase from "Tarakeb project" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = D67A32AD2DA4AB04006A08A2 /* Sources */;
+			membershipExceptions = (
+				AccInfo.h,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D67A32B32DA4AB04006A08A2 /* Tarakeb project */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D67A32BD2DA4BA80006A08A2 /* Exceptions for "Tarakeb project" folder in "Compile Sources" phase from "Tarakeb project" target */,
+			);
 			path = "Tarakeb project";
 			sourceTree = "<group>";
 		};
