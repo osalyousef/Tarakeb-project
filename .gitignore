@@ -17,7 +17,7 @@ DerivedData/
 *.ipa
 *.dSYM.zip
 *.dSYM
-
+Tarakeb\ project.xcodeproj
 # Swift Package Manager
 .build/
 Packages/
