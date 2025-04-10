@@ -13,7 +13,7 @@ private:
     int accountId;
     int phoneNum;
 
-    string typeOp[] = {"withdraw", "deposit", "transfer","juj"};
+    string typeOp[] = {"withdraw", "deposit", "transfer"};
                
     struct TransHistory {
         TransHistory* next;
@@ -21,7 +21,7 @@ private:
         int amount;
         string type;           // ايداع , سحب , تحويل
         string nameSender[2];
-        int last4Num_Id;           // last 4  number of account id
+        int idLast4;           // last 4  number of account id
     };
 
     TransHistory* Historyhead;
@@ -56,6 +56,10 @@ public:
     void deposit(int amount);
     void withdraw(int amount);
     // int transfare(int amount);
+
+
+    void addTrans(int amount , string type);
+    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); //asd
 
     
 
