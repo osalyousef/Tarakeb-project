@@ -14,7 +14,7 @@ private:
     int phoneNum;
 
     string typeOp[] = {"withdraw", "deposit", "transfer","juj"};
-
+               
     struct TransHistory {
         TransHistory* next;
 
@@ -75,7 +75,7 @@ Accounts::Accounts(string password, string Fname, string Lname, int accountId, i
     this->phoneNum = phoneNum;
     this->balance = 0;  
     Historyhead = NULL;
-
+cout<<endl;
 }
 
 void Accounts::setBalance(float balance) {
