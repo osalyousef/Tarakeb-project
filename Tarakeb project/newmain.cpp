@@ -59,7 +59,7 @@ public:
 
 
     void addTrans(int amount , string type);
-    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); //asd
+    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); // Osama bya3
 
     
 
