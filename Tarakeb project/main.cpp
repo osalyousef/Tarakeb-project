@@ -85,7 +85,6 @@ void NewUser() {
             cout << "Default account" << endl;
             Accounts[AccountsNumber].Print();
             AccountsNumber++;
-            break;
     }
     
     UI();

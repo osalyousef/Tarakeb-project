@@ -30,6 +30,7 @@ class AccountsInformations{
         AccountBalance = 0;
         Fname = Lname = "NULL";
         Password = "0000";
+        cout<<endl;
     }
 
     void SetAccBalance(float AC){
