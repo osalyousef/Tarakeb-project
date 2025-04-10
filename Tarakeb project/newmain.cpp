@@ -76,6 +76,7 @@ Accounts::Accounts(string password, string Fname, string Lname, int accountId, i
     this->balance = 0;  
     Historyhead = NULL;
 cout<<endl;
+cout << endl ; // Marwan Wr3 
 }
 
 void Accounts::setBalance(float balance) {
