@@ -10,17 +10,17 @@ class Accounts {
 
 private:
     float balance;
-    string password, Fname, Lname;
+    string password, fullName;
     int accountId;
     int phoneNum;
 
-               
+               //transefare;
     struct TransHistory {
         TransHistory* next;
 
         int amount;
         string type;           // ايداع , سحب , تحويل
-        string nameSender[2];
+        string senderName;
         int last4Num_Id;           // last 4  number of account id
     };
 
@@ -31,7 +31,7 @@ public:
      
    //counstructer :
     Accounts();
-    Accounts(string password, string Fname, string Lname, int accountId, int phoneNum);
+    Accounts::Accounts(string password, string fullName, int accountId, int phoneNum);
      
     //setter and getter :
     void setBalance(float balance);
@@ -56,10 +56,9 @@ public:
     void deposit(int amount);
     void withdraw(int amount);
     // int transfare(int amount);
-    void addTrans(int amount , string type); // for deposit and with draw         
-    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); // for transfare
-    
-
+    void addTrans(int amount , string type); // for deposit and with draw
+    void addTrans(int amount, string type, string Fullname, int idLast4);
+    void printTransHistory();
 };
 
 Accounts::Accounts() {
@@ -68,10 +67,9 @@ Accounts::Accounts() {
     Historyhead = NULL;
 }
 
-Accounts::Accounts(string password, string Fname, string Lname, int accountId, int phoneNum) {
+Accounts::Accounts(string password, string fullName, int accountId, int phoneNum) {
     this->password = password;
-    this->Fname = Fname;
-    this->Lname = Lname;
+    this->fullName = fullName;
     this->accountId = accountId;
     this->phoneNum = phoneNum;
     this->balance = 0;  
@@ -86,21 +84,7 @@ float Accounts::getBalance() {
     return this->balance;
 }
 
-void Accounts::setFname(string Fname) {
-    this->Fname = Fname;
-}
 
-string Accounts::getFname() {
-    return this->Fname;
-}
-
-void Accounts::setLname(string Lname) {
-    this->Lname = Lname;
-}
-
-string Accounts::getLname() {
-    return this->Lname;
-}
 
 void Accounts::setPassword(string password) {
     this->password = password;
@@ -143,7 +127,7 @@ Accounts::addTrans(amount,type);
 }
 
 void Accounts:: withdraw(int amount){
-         if(balance < 0 && (balance - amount) < 0 ){
+         if(balance > 0 && (balance - amount) < 0 ){
             cout<<"Sorry , your withdraw is more then you have in bank"<<endl;
             cout<<"Your cuurent money in bank is : "<<balance<<endl;
 
@@ -166,7 +150,10 @@ void Accounts:: withdraw(int amount){
 
 void Accounts::addTrans(int amount , string type){
     TransHistory *temp = new TransHistory;
+
     TransHistory *current = Historyhead;
+
+    
     temp->amount = amount;
     temp->type = type;
     temp->next = NULL;
@@ -194,8 +181,60 @@ void Accounts::addTrans(int amount , string type){
 
 
 
+void  Accounts:: addTrans(int amount , string type , string Fullname , int idLast4) {
+
+    TransHistory *temp = new TransHistory;
+
+    TransHistory *current = Historyhead;
+
+    
+    temp->amount = amount;
+    temp->type = type;
+    temp->last4Num_Id = idLast4;
+    temp->senderName = Fullname;
+    temp->next = NULL;
 
 
+    if(current == NULL){
+    Historyhead = temp;
+    return;
+    }
+      
+    while (current->next !=NULL)
+    {
+        current = current->next;
+    }
+    
+      current->next = temp;
+
+
+
+}
+
+void Accounts:: printTransHistory(){
+
+    TransHistory *current = Historyhead;
+    if(current == NULL){
+        cout<<"empty history .."<<endl;
+        return;
+        }
+
+        while (current !=NULL)
+        {
+         if(current->type =="transefare"){
+          cout<<"transefaration from ("<<current->last4Num_Id<<") sender '"<<current->senderName<<"\nAmount : "<<current->amount<<"SAR"<<endl;
+
+          current = current->next;
+          continue;
+         }
+        cout<<"you "<<current->type<<" : "<<current->amount<<endl;
+
+
+            current = current->next;
+        }
+        
+          
+}
 
 
 
