@@ -13,7 +13,6 @@ private:
     int accountId;
     int phoneNum;
 
-    string typeOp[] = {"withdraw", "deposit", "transfer"};
                
     struct TransHistory {
         TransHistory* next;
@@ -186,7 +185,7 @@ void Accounts:: withdraw(int amount){
 
 
 
-int main{
+int main(){
 
 
 
