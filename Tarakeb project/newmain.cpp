@@ -56,7 +56,8 @@ public:
     void deposit(int amount);
     void withdraw(int amount);
     // int transfare(int amount);
-
+    void addTrans(int amount , string type);
+    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); // Osama bya3
     
 
 };
