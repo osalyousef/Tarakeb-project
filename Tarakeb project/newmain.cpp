@@ -21,7 +21,7 @@ private:
         int amount;
         string type;           // ايداع , سحب , تحويل
         string nameSender[2];
-        int idLast4;           // last 4  number of account id
+        int last4Num_Id;           // last 4  number of account id
     };
 
     TransHistory* Historyhead;
@@ -57,10 +57,6 @@ public:
     void withdraw(int amount);
     // int transfare(int amount);
 
-
-    void addTrans(int amount , string type);
-    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); // Osama bya3
-
     
 
 };
@@ -79,8 +75,6 @@ Accounts::Accounts(string password, string Fname, string Lname, int accountId, i
     this->phoneNum = phoneNum;
     this->balance = 0;  
     Historyhead = NULL;
-cout<<endl;
-cout << endl ; // Marwan Wr3 
 }
 
 void Accounts::setBalance(float balance) {
