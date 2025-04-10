@@ -13,7 +13,7 @@ private:
     int accountId;
     int phoneNum;
 
-    string typeOp[] = {"withdraw", "deposit", "transfer"};
+    string typeOp[] = {"withdraw", "deposit", "transfer","juj"};
 
     struct TransHistory {
         TransHistory* next;
