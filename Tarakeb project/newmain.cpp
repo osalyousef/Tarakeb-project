@@ -7,13 +7,13 @@
 using namespace std;
 
 class Accounts {
-
 private:
     float balance;
     string password, Fname, Lname;
     int accountId;
     int phoneNum;
 
+    string typeOp[]= {"withdraw", "deposit", "transfer"};
                
     struct TransHistory {
         TransHistory* next;
@@ -56,8 +56,8 @@ public:
     void deposit(int amount);
     void withdraw(int amount);
     // int transfare(int amount);
-    void addTrans(int amount , string type); // for deposit and with draw         
-    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); // for transfare
+    void addTrans(int amount , string type);
+    void addTrans(int amount , string type , string Fname,string Lname , int idLast4); // Osama bya3
     
 
 };
@@ -138,7 +138,6 @@ void Accounts:: deposit(int amount){
     string type = "deposit"; // to pass it to trans info
 
 // should eneter Trans info here         
-Accounts::addTrans(amount,type);
 
 }
 
@@ -158,35 +157,9 @@ void Accounts:: withdraw(int amount){
     string type = "withdraw"; // to pass it to trans info
 
 // should eneter Trans info here         
- 
- Accounts::addTrans(amount,type);
-}
-
-
-
-void Accounts::addTrans(int amount , string type){
-    TransHistory *temp = new TransHistory;
-    TransHistory *current = Historyhead;
-    temp->amount = amount;
-    temp->type = type;
-    temp->next = NULL;
-
-
-    if(current == NULL){
-    Historyhead = temp;
-    return;
-    }
-      
-    while (current->next !=NULL)
-    {
-        current = current->next;
-    }
-    
-      current->next = temp;
-
-
 
 }
+
 
 
 
@@ -213,7 +186,7 @@ void Accounts::addTrans(int amount , string type){
 
 
 
-int main(){
+int main{
 
 
 
