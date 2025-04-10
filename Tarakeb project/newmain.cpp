@@ -1,7 +1,5 @@
 #include <iostream>
-#include <map>
 #include <string>
-#include <stack>
 #include <cstdlib>
 #include <ctime>
 using namespace std;
@@ -127,7 +125,7 @@ Accounts::addTrans(amount,type);
 }
 
 void Accounts:: withdraw(int amount){
-         if(balance > 0 && (balance - amount) < 0 ){
+         if(balance < 0 && (balance - amount) < 0 ){
             cout<<"Sorry , your withdraw is more then you have in bank"<<endl;
             cout<<"Your cuurent money in bank is : "<<balance<<endl;
 
@@ -206,7 +204,7 @@ void  Accounts:: addTrans(int amount , string type , string Fullname , int idLas
     }
     
       current->next = temp;
-
+ 
 
 
 }
@@ -230,7 +228,7 @@ void Accounts:: printTransHistory(){
         cout<<"you "<<current->type<<" : "<<current->amount<<endl;
 
 
-            current = current->next;
+            current = current->next; //aa
         }
         
           
