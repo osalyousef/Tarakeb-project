@@ -143,7 +143,7 @@ Accounts::addTrans(amount,type);
 }
 
 void Accounts:: withdraw(int amount){
-         if(balance < 0 && (balance - amount) < 0 ){
+         if((balance - amount) < 0 ){
             cout<<"Sorry , your withdraw is more then you have in bank"<<endl;
             cout<<"Your cuurent money in bank is : "<<balance<<endl;
 
