@@ -1,8 +1,10 @@
-// accountmap.h
-#ifndef ACCOUNTMAP_H
-#define ACCOUNTMAP_H
+#ifndef ACCOUNTSMAP_H
+#define ACCOUNTSMAP_H
 
 #include "Accounts.h"
+#include <iostream>
+
+using namespace std;
 
 const int TABLE_SIZE = 100;
 
@@ -12,13 +14,13 @@ struct AccountEntry {
     AccountEntry* next;
 };
 
-class AccountMap {
+class AccountsMap {
 private:
-    AccountEntry* table[TABLE_SIZE];
-    int hashFunction(int phoneNum);
 
 public:
-    AccountMap();
+    AccountEntry* table[TABLE_SIZE];
+    int hashFunction(int phoneNum);
+    AccountsMap();
     void insertAccount(Accounts* acc);
     Accounts* getAccount(int phoneNum);
     void printAllAccounts();

@@ -1,4 +1,4 @@
-#include "accounts.h"
+#include "Accounts.h"
 #include <iostream>
 #include <ctime>
 #include <iomanip>
@@ -173,49 +173,41 @@ void Accounts::printTransHistory() {
     }
 }
 
-void Accounts::undoLastTransaction() {
-    if(Historyhead == NULL) {
-        cout << "No transactions to undo." << endl;
+void Accounts:: undoLastTransaction() {
+    if (Historyhead == NULL) {
+        cout << "No transaction to undo.\n";
         return;
     }
 
-    TransHistory* last = Historyhead;
-    TransHistory* prev = NULL;
-
-    // Find the last transaction
-    while(last->next != NULL) {
-        prev = last;
-        last = last->next;
-    }
-
-    // Undo the transaction
-    if(last->type == "deposit") {
-        balance -= last->amount;
-        cout << "Undid deposit of " << last->amount << " SAR" << endl;
-    }
-    else if(last->type == "withdraw") {
-        balance += last->amount;
-        cout << "Undid withdrawal of " << last->amount << " SAR" << endl;
-    }
-    else if(last->type == "transfer") {
-        // For simplicity, we'll just adjust balance
-        // In a real system, you'd need to find the other account too
-        if(last->direction == "outgoing") {
-            balance += last->amount;
-            cout << "Undid outgoing transfer of " << last->amount << " SAR" << endl;
-        } else {
-            balance -= last->amount;
-            cout << "Undid incoming transfer of " << last->amount << " SAR" << endl;
+    if (Historyhead->next == NULL) {
+        TransHistory* temp = Historyhead;
+        if (temp->type == "deposit") balance -= temp->amount;
+        else if (temp->type == "withdraw") balance += temp->amount;
+        else if (temp->type == "transfer") {
+            if (temp->direction == "to") balance += temp->amount;
+            else if (temp->direction == "from") balance -= temp->amount;
         }
-    }
 
-    // Remove the transaction from history
-    if(prev != NULL) {
-        prev->next = NULL;
-    } else {
+        delete temp;
         Historyhead = NULL;
+        cout << "Last transaction undone.\n";
+        return;
     }
-    delete last;
 
-    cout << "Current balance: " << balance << " SAR" << endl;
+    TransHistory* current = Historyhead;
+    while (current->next->next != NULL)
+        current = current->next;
+
+    TransHistory* toDelete = current->next;
+
+    if (toDelete->type == "deposit") balance -= toDelete->amount;
+    else if (toDelete->type == "withdraw") balance += toDelete->amount;
+    else if (toDelete->type == "transfer") {
+        if (toDelete->direction == "to") balance += toDelete->amount;
+        else if (toDelete->direction == "from") balance -= toDelete->amount;
+    }
+
+    delete toDelete;
+    current->next = NULL;
+    cout << "Last transaction undone.\n";
 }
