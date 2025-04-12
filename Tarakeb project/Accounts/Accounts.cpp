@@ -165,6 +165,9 @@ void Accounts::printTransHistory() {
                 cout << "from " << current->senderName;
             }
             cout << " (ID: " << current->last4Num_Id << ")" << endl;
+        } else if(current->type == "undo") {
+            cout << "[" << current->dateTime << "] ";
+            cout << "UNDO BY ADMIN: " << current->direction << " (" << current->amount << " SAR)" << endl;
         } else {
             cout << "[" << current->dateTime << "] ";
             cout << current->type << ": " << current->amount << " SAR" << endl;
@@ -173,7 +176,7 @@ void Accounts::printTransHistory() {
     }
 }
 
-void Accounts:: undoLastTransaction() {
+void Accounts::undoLastTransaction() {
     if (Historyhead == NULL) {
         cout << "No transaction to undo.\n";
         return;
@@ -181,16 +184,31 @@ void Accounts:: undoLastTransaction() {
 
     if (Historyhead->next == NULL) {
         TransHistory* temp = Historyhead;
-        if (temp->type == "deposit") balance -= temp->amount;
-        else if (temp->type == "withdraw") balance += temp->amount;
+        float undoAmount = temp->amount;
+        string undoType = temp->type;
+        string undoDirection = temp->direction;
+        
+        if (temp->type == "deposit") {
+            balance -= temp->amount;
+        }
+        else if (temp->type == "withdraw") {
+            balance += temp->amount;
+        }
         else if (temp->type == "transfer") {
-            if (temp->direction == "to") balance += temp->amount;
-            else if (temp->direction == "from") balance -= temp->amount;
+            if (temp->direction == "outgoing") {
+                balance += temp->amount;
+            }
+            else if (temp->direction == "incoming") {
+                balance -= temp->amount;
+            }
         }
 
         delete temp;
         Historyhead = NULL;
-        cout << "Last transaction undone.\n";
+        
+        // Add new transaction record for the undo
+        addTrans(undoAmount, "undo", "System", 0, "Undid " + undoType + (undoDirection.empty() ? "" : " " + undoDirection));
+        cout << "Last transaction undone. New balance: " << balance << endl;
         return;
     }
 
@@ -199,15 +217,29 @@ void Accounts:: undoLastTransaction() {
         current = current->next;
 
     TransHistory* toDelete = current->next;
+    float undoAmount = toDelete->amount;
+    string undoType = toDelete->type;
+    string undoDirection = toDelete->direction;
 
-    if (toDelete->type == "deposit") balance -= toDelete->amount;
-    else if (toDelete->type == "withdraw") balance += toDelete->amount;
+    if (toDelete->type == "deposit") {
+        balance -= toDelete->amount;
+    }
+    else if (toDelete->type == "withdraw") {
+        balance += toDelete->amount;
+    }
     else if (toDelete->type == "transfer") {
-        if (toDelete->direction == "to") balance += toDelete->amount;
-        else if (toDelete->direction == "from") balance -= toDelete->amount;
+        if (toDelete->direction == "outgoing") {
+            balance += toDelete->amount;
+        }
+        else if (toDelete->direction == "incoming") {
+            balance -= toDelete->amount;
+        }
     }
 
     delete toDelete;
     current->next = NULL;
-    cout << "Last transaction undone.\n";
+    
+    // Add new transaction record for the undo - os
+    addTrans(undoAmount, "undo", "System", 0, "Undid " + undoType + (undoDirection.empty() ? "" : " " + undoDirection));
+    cout << "Last transaction undone. New balance: " << balance << endl;
 }

@@ -45,9 +45,9 @@ void ui() {
         } else if (choice == 2) {
             int phone;
             string pass;
-            cout << "Enter Phone Number: ";
-            cin >> phone;
             cout << "Enter Password: ";
+            cin >> phone;
+            cout << "Enter Phone number: ";
             cin.ignore();
             getline(cin, pass);
 
