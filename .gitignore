@@ -17,6 +17,13 @@ DerivedData/
 *.ipa
 *.dSYM.zip
 *.dSYM
+Tarakeb\ project.xcodeproj
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+.swiftpm
 
 # CocoaPods
 Pods/
@@ -29,6 +36,12 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+# Xcode files to ignore
+Tarakeb project.xcodeproj/
+*.xcworkspace
+xcuserdata/
+DerivedData/
+*.xcuserstate
 
 # System files
 .DS_Store
