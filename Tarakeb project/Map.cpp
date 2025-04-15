@@ -15,8 +15,8 @@ void ui() {
         cout << "\n===== Bank Menu =====\n";
         cout << "1. Create Account\n";
         cout << "2. Log In\n";
-        cout << "3. Exit\n";
-        cout << "4. Admin Panel\n";
+        cout << "3. Admin Panel\n";
+        cout << "4. Exit\n";
         cout << "Choose: ";
         cin >> choice;
 
@@ -96,14 +96,17 @@ void ui() {
             }
 
         } else if (choice == 3) {
-            cout << "Goodbye!\n";
-            break;
-        } else if (choice == 4) {
             Admin admin(&bankSystem);
             admin.adminPanel();
+            continue;
+
+        } else if (choice == 4) {
+            cout << "Goodbye!\n";
+            break;
         } else {
             cout << "Invalid choice.\n";
         }
+
     }
 }
 
