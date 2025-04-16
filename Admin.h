@@ -4,7 +4,7 @@
 #include "AccInfo.h"
 #include <vector>
 using namespace std;
-
+class AccountMap; 
 class Admin {
 private:
     AccountMap* bankSystem;
