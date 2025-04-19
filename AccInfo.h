@@ -70,6 +70,41 @@ public:
     AccountEntry* getTableEntry(int index) { return table[index]; }
     int getTableSize() { return TABLE_SIZE; }
 };
+// Add this after the AccountMap class definition
+
+class FileStack {
+private:
+    struct Node {
+        FILE* file;
+        Node* next;
+    };
+    Node* top;
+public:
+    FileStack() : top(nullptr) {}
+    void push(FILE* f) {
+        Node* newNode = new Node{f, top};
+        top = newNode;
+    }
+    FILE* pop() {
+        if (!top) return nullptr;
+        Node* temp = top;
+        FILE* f = temp->file;
+        top = top->next;
+        delete temp;
+        return f;
+    }
+    FILE* getTop() {
+        return top ? top->file : nullptr;
+    }
+    ~FileStack() {
+        while (top) {
+            FILE* f = pop();
+            if (f) fclose(f);
+        }
+    }
+};
+
+extern FileStack fileStack;
 
 // Global AccountMap declaration
 extern AccountMap bankSystem;

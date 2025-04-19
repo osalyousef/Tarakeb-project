@@ -4,7 +4,11 @@
 #include <cstdlib>
 #include <chrono>
 #include "Admin.h"
+#include <cstdio>
+
 using namespace std;
+FileStack fileStack;
+
 // Accounts class implementation
 Accounts::Accounts() {
     balance = 0;
@@ -36,7 +40,17 @@ void Accounts::deposit(int amount) {
     balance += amount;
     cout << "Deposited: " << amount << endl;
     addTrans(amount, "deposit");
+    cout << "Your balance is: " << getBalance() << endl;
+
+    // Log to file using stack
+    FILE* f = fileStack.getTop();
+    if (f) {
+        fprintf(f, "DEPOSIT: Amount=%d Account=%d Balance=%.2f\n",
+                amount, accountId, balance);
+        fflush(f);  // Ensure it's written immediately
+    }
 }
+
 
 void Accounts::withdraw(int amount) {
     if (balance < amount) {
@@ -46,7 +60,17 @@ void Accounts::withdraw(int amount) {
     balance -= amount;
     cout << "Withdrawn: " << amount << endl;
     addTrans(amount, "withdraw");
+    cout << "Your balance is: " << getBalance() << endl;
+
+    // Log to file using stack
+    FILE* f = fileStack.getTop();
+    if (f) {
+        fprintf(f, "WITHDRAW: Amount=%d Account=%d Balance=%.2f\n",
+                amount, accountId, balance);
+        fflush(f);
+    }
 }
+
 
 void Accounts::transfer(int amount, Accounts& receiver, string direction) {
     if (balance < amount) {
@@ -56,13 +80,19 @@ void Accounts::transfer(int amount, Accounts& receiver, string direction) {
     balance -= amount;
     receiver.balance += amount;
 
-    // Add transaction for the sender (with last 4 digits of the receiver's account ID)
     addTrans(amount, "transfer", receiver.getName(), receiver.getAccountId(), "to");
-
-    // Add transaction for the receiver (with last 4 digits of the sender's account ID)
     receiver.addTrans(amount, "transfer", getName(), getAccountId(), "from");
 
     cout << "Transferred " << amount << " to " << receiver.getName() << endl;
+    cout << "Your balance is: " << getBalance() << endl;
+
+    // Log to file using stack
+    FILE* f = fileStack.getTop();
+    if (f) {
+        fprintf(f, "TRANSFER: Amount=%d From=%d To=%d FromBalance=%.2f ToBalance=%.2f\n",
+                amount, accountId, receiver.getAccountId(), balance, receiver.balance);
+        fflush(f);
+    }
 }
 
 void Accounts::addTrans(int amount, string type, string name, int idLast4, string direction) {
