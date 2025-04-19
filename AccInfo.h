@@ -70,7 +70,7 @@ public:
     AccountEntry* getTableEntry(int index) { return table[index]; }
     int getTableSize() { return TABLE_SIZE; }
 };
-// Add this after the AccountMap class definition
+// Add this after the AccountMap class definition - marwan
 
 class FileStack {
 private:
